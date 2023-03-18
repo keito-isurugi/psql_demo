@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  db:
+    image: postgres
+    container_name: postgres
+    ports:
+      - 5432:5432
+    environment:
+      # POSTGRES_USER: root
+      POSTGRES_PASSWORD: test
+      # POSTGRES_DB: sql_demo
+    volumes:
+      - sql_demo_data:/var/lib/postgresql/data
+  pgadmin4:
+    image: dpage/pgadmin4
+    ports:
+      - 8888:80
+    volumes:
+      - pgadmin4_data:/var/lib/pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: test@email.com
+      PGADMIN_DEFAULT_PASSWORD: test
+    depends_on:
+      - db
+volumes:
+  sql_demo_data:
+  pgadmin4_data:
