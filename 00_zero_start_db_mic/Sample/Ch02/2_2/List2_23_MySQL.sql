@@ -13,3 +13,5 @@ INSERT INTO Chars VALUES ('10');
 INSERT INTO Chars VALUES ('11');
 INSERT INTO Chars VALUES ('222');
 COMMIT;
+
+select shohin_mei, shiire_tanka from shohin where shiire_tanka <> 2800 or shiire_tanka is null
