@@ -87,3 +87,26 @@ SELECT shohin_mei, hanbai_tanka
                  FROM TenpoShohin TS
                 WHERE TS.tenpo_id = '000C'
                   AND TS.shohin_id = S.shohin_id);
+
+-- CASE
+-- 検索CASE式
+SELECT shohin_mei,
+	CASE WHEN shohin_bunrui = '衣服'         THEN 'A：' || shohin_bunrui
+			 WHEN shohin_bunrui = '事務用品'     THEN 'B：' || shohin_bunrui
+			 WHEN shohin_bunrui = 'キッチン用品' THEN 'C：' || shohin_bunrui
+			 ELSE NULL
+	END AS abc_shohin_bunrui
+FROM Shohin;
+-- 単純CASE式
+SELECT 
+	SUM(CASE WHEN shohin_bunrui = '衣類'         THEN hanbai_tanka ELSE 0 END) AS sum_tanka_ihuku,
+	SUM(CASE WHEN shohin_bunrui = 'キッチン用品' THEN hanbai_tanka ELSE 0 END) AS sum_tanka_kitchen,
+	SUM(CASE WHEN shohin_bunrui = '事務用品'     THEN hanbai_tanka ELSE 0 END) AS sum_tanka_jimu
+FROM Shohin;
+
+-- 練習問題
+SELECT 
+	SUM(CASE WHEN hanbai_tanka <= 1000 THEN 1 ELSE 0 END) AS "低価格",
+	SUM(CASE WHEN hanbai_tanka BETWEEN 1001 AND 3000 THEN 1 ELSE 0 END) AS "中価格",
+	SUM(CASE WHEN hanbai_tanka >= 3001 THEN 1 ELSE 0 END) AS "高価格"
+FROM Shohin;
